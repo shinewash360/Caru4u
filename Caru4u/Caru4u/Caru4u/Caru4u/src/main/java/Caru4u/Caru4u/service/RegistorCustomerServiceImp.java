@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Service
 public class RegistorCustomerServiceImp implements RegistorCustomerService {
 
@@ -17,11 +20,11 @@ public class RegistorCustomerServiceImp implements RegistorCustomerService {
     public String CustomerSave(RegistorCustomerModel registorCustomerModel) {
 
         String passwordCheck = checkPassword(registorCustomerModel.getPassword());
-        if (!passwordCheck.equals("Ok")) {
+        if (!passwordCheck.equals("OK")) {
             return passwordCheck;
         }
 
-        String emailDeatile = EmailCheck(registorCustomerModel.getEmail());
+        String emailDeatile = emailCheck(registorCustomerModel.getEmail());
         if (!emailDeatile.equals("OK")) {
             return emailDeatile;
         }
@@ -30,13 +33,22 @@ public class RegistorCustomerServiceImp implements RegistorCustomerService {
         }
 
         String PhoneNumberValidation = phoneNumberCheck(registorCustomerModel.getPhone());
-        if (PhoneNumberValidation.equals("OK")) {
+        if (!PhoneNumberValidation.equals("OK")) {
             return PhoneNumberValidation;
         }
 
         if (registorCumstomerRepository.findByPhone(registorCustomerModel.getPhone()).isPresent()) {
             return "Phone Number Already Registered";
         }
+//        String PasswordCheck = passwordValidation(registorCustomerModel.getPassword());
+//        if (PasswordCheck.equals("OK")) {
+//            return PasswordCheck;
+//        }
+
+        String token = UUID.randomUUID().toString();
+        registorCustomerModel.setResetToken(token);
+        registorCustomerModel.setTokenExpiry(LocalDateTime.now().plusMinutes(15));
+
         registorCumstomerRepository.save(registorCustomerModel);
         return "Registration SuccessFull";
 
@@ -47,20 +59,19 @@ public class RegistorCustomerServiceImp implements RegistorCustomerService {
         if (password == null || password.trim().isEmpty()) {
             return "Password Not Empty";
         }
-        if (password.length() >= 4) {
+        if (password.length() < 4) {
             return "Password Should be Atlest 4";
         }
         return "OK";
     }
 
-    private String EmailCheck(String Email) {
-        if (Email == null || Email.trim().isEmpty()) {
-            return "Email Not Empty";
+    private String emailCheck(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return "Email cannot be empty";
         }
-
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        if (!emailRegex.matches(emailRegex)) {
-            return "InValid Email";
+        if (!email.matches(emailRegex)) {
+            return "Invalid Email";
         }
         return "OK";
     }
@@ -75,4 +86,24 @@ public class RegistorCustomerServiceImp implements RegistorCustomerService {
         }
         return "OK";
     }
+
+//    private String passwordValidation(String password) {
+//
+//        if (password == null || password.trim().isEmpty()) {
+//            return "Password must not be empty";
+//        }
+//
+//        String passwordRegex =
+//                "^(?=.*[A-Z])" +        // At least one uppercase
+//                        "(?=.*[a-z])" +        // At least one lowercase
+//                        "(?=.*\\d)" +          // At least one digit
+//                        "(?=.*[@$!%*?&])" +    // At least one special character
+//                        "[A-Za-z\\d@$!%*?&]{8,}$"; // Min 8 chars, allowed characters only
+//
+//        if (!password.matches(passwordRegex)) {
+//            return "Password must contain minimum 8 characters";
+//        }
+//
+//        return "OK";
+//    }
 }

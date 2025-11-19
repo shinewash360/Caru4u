@@ -13,4 +13,6 @@ public interface RegistorCumstomerRepository extends JpaRepository<RegistorCusto
     Optional<RegistorCustomerModel> findByEmail(String email);
 
     Optional<RegistorCustomerModel> findByPhone(String phone);
+
+    Optional<RegistorCustomerModel> findByResetToken(String resetToken);
 }
