@@ -1,4 +1,4 @@
-package Shinewash360.ShineWash360.service;
+package Caru4u.Caru4u.service;
 
 public interface LoginCustomerService {
 

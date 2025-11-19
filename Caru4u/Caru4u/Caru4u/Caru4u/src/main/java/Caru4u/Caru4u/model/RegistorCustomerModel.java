@@ -1,4 +1,4 @@
-package Shinewash360.ShineWash360.model;
+package Caru4u.Caru4u.model;
 
 
 import jakarta.persistence.*;

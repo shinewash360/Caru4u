@@ -1,6 +1,8 @@
-package Shinewash360.ShineWash360.repository;
+package Caru4u.Caru4u.repository;
 
-import Shinewash360.ShineWash360.model.RegistorCustomerModel;
+
+
+import Caru4u.Caru4u.model.RegistorCustomerModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

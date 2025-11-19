@@ -1,8 +1,9 @@
-package Shinewash360.ShineWash360.Controller;
+package Caru4u.Caru4u.Controller;
 
 
-import Shinewash360.ShineWash360.model.LoginCustomerModel;
-import Shinewash360.ShineWash360.service.LoginCustomerService;
+
+import Caru4u.Caru4u.model.LoginCustomerModel;
+import Caru4u.Caru4u.service.LoginCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

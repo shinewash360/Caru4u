@@ -1,8 +1,10 @@
-package Shinewash360.ShineWash360.service;
+package Caru4u.Caru4u.service;
 
-import Shinewash360.ShineWash360.model.RegistorCustomerModel;
+
+import Caru4u.Caru4u.model.RegistorCustomerModel;
+import Caru4u.Caru4u.repository.RegistorCumstomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import Shinewash360.ShineWash360.repository.RegistorCumstomerRepository;
+
 import org.springframework.stereotype.Service;
 
 @Service

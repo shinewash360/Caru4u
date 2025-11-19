@@ -1,13 +1,13 @@
-package Shinewash360.ShineWash360;
+package Caru4u.Caru4u;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ShineWash360Application {
+public class Caru4uApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ShineWash360Application.class, args);
+		SpringApplication.run(Caru4uApplication.class, args);
 	}
 
 }
