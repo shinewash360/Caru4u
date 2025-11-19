@@ -1,6 +1,7 @@
-package Shinewash360.ShineWash360.service;
+package Caru4u.Caru4u.service;
 
-import Shinewash360.ShineWash360.model.RegistorCustomerModel;
+
+import Caru4u.Caru4u.model.RegistorCustomerModel;
 
 public interface RegistorCustomerService {
 

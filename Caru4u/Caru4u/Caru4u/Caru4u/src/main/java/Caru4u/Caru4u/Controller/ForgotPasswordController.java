@@ -1,6 +1,7 @@
-package Shinewash360.ShineWash360.Controller;
+package Caru4u.Caru4u.Controller;
 
-import Shinewash360.ShineWash360.service.ForgotPasswordService;
+
+import Caru4u.Caru4u.service.ForgotPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

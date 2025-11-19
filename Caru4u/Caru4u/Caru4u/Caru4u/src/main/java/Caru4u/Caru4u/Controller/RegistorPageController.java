@@ -1,10 +1,12 @@
-package Shinewash360.ShineWash360.Controller;
+package Caru4u.Caru4u.Controller;
 
 
-import Shinewash360.ShineWash360.model.RegistorCustomerModel;
+
+import Caru4u.Caru4u.model.RegistorCustomerModel;
+import Caru4u.Caru4u.service.RegistorCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import Shinewash360.ShineWash360.service.RegistorCustomerService;
+
 
 
 @RestController

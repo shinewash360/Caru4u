@@ -1,23 +1,27 @@
-package Shinewash360.ShineWash360.service;
+package Caru4u.Caru4u.service;
 
-import Shinewash360.ShineWash360.model.RegistorCustomerModel;
-import Shinewash360.ShineWash360.repository.ForgotPasswordResetRepository;
-import Shinewash360.ShineWash360.repository.RegistorCumstomerRepository;
+
+
+import Caru4u.Caru4u.model.RegistorCustomerModel;
+import Caru4u.Caru4u.repository.ForgotPasswordResetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class ForgotPasswordServiceImpl implements ForgotPasswordService {
     @Autowired
     private ForgotPasswordResetRepository forgotPasswordResetRepository;
 
     @Autowired
     private ForgotEmailService forgotEmailService;
+
     @Override
     public String processForgotPassword(String mail) {
-        RegistorCustomerModel registorCustomerModel= forgotPasswordResetRepository.findByEmail(mail);
+       RegistorCustomerModel registorCustomerModel= forgotPasswordResetRepository.findByEmail(mail);
         if(forgotPasswordResetRepository == null){
             return "Email Id Not Found";
         }

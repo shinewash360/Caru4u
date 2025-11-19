@@ -1,12 +1,14 @@
-package Shinewash360.ShineWash360.service;
+package Caru4u.Caru4u.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ForgotEmailService {
-    @Autowired
-    private JavaMailSenderImpl javaMailSender;
+//    @Autowired
+//    private JavaMailSender javaMailSender;
     public void sendEmail(String to, String subject, String message) {
 
 
