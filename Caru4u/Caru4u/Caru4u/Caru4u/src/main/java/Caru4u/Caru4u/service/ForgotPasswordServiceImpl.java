@@ -1,10 +1,12 @@
 package Caru4u.Caru4u.service;
 
 
+import Caru4u.Caru4u.Utiles.Constants;
 import Caru4u.Caru4u.model.RegistorCustomerModel;
 import Caru4u.Caru4u.repository.RegistorCumstomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.nodes.CollectionNode;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -22,7 +24,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
     public String processForgotPassword(String email) {
         Optional<RegistorCustomerModel> optionalUser = registorCumstomerRepository.findByEmail(email);
         if (optionalUser.isEmpty()) {
-            return "Email ID Not Found";
+            return Constants.EMAIL_ID_NOT_FOUND;
         }
         RegistorCustomerModel user = optionalUser.get();
         String token = UUID.randomUUID().toString();
@@ -30,14 +32,14 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
         user.setTokenExpiry(LocalDateTime.now().plusMinutes(30));
 
         registorCumstomerRepository.save(user);
-        String resetLink = "http://localhost:8080/reset-password?token=" + token;
+        String resetLink = Constants.RESET_LINK_PASSWORD + token;
         forgotEmailService.sendEmail(
                 email,
-                "Reset Your Password",
-                "Click the link to reset your password:\n" + resetLink
+                Constants.RESET_YOUR_PASSWORD,
+                Constants.CLICK_THE_LINK_TO_RESET_YOUR_PASSWORD + resetLink
         );
 
-        return "Password reset link sent!";
+        return Constants.PASSWORD_RESET_LINK;
     }
 
 
@@ -49,7 +51,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
         // Invalid token
         if (optionalUser.isEmpty()) {
-            return "Invalid Token";
+            return Constants.INVALID_TOKEN;
         }
 
         RegistorCustomerModel user = optionalUser.get();
@@ -57,7 +59,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
         // Token expired
         if (user.getTokenExpiry() != null &&
                 user.getTokenExpiry().isBefore(LocalDateTime.now())) {
-            return "Token expired!";
+            return Constants.INVALID_EXPIRED;
         }
 
         // Update password (add encryption if needed)
@@ -70,7 +72,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
         // Save updated user
         registorCumstomerRepository.save(user);
 
-        return "Password Updated Successfully";
+        return Constants.PASSWORD_UPDATED_SUCCESSFULLY;
     }
 
 }
