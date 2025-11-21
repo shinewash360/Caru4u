@@ -1,6 +1,7 @@
 package Caru4u.Caru4u.service;
 
 
+import Caru4u.Caru4u.Utiles.Constants;
 import Caru4u.Caru4u.model.RegistorCustomerModel;
 import Caru4u.Caru4u.repository.RegistorCumstomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,37 +18,37 @@ public class LoginCustomerServiceImpl implements LoginCustomerService {
     @Override
     public String loginCustomer(String emailOrPhone, String password) {
         if (emailOrPhone == null || emailOrPhone.trim().isEmpty()) {
-            return "Email or phone is required";
+            return Constants.EMAIL_OR_PHONE_IS_REQUIRED;
         }
         if (password == null || password.trim().isEmpty()) {
-            return "Password is required";
+            return Constants.PASSWORD_IS_REQUIRED;
         }
         Optional<RegistorCustomerModel> userOp = Optional.empty();
         if (isValidEmail(emailOrPhone)) {
             //Login By Email
             Optional<RegistorCustomerModel> userOpt = registorCumstomerRepository.findByEmail(emailOrPhone);
             if (userOpt.isEmpty()) {
-                return "User not found";
+                return Constants.USER_NOT_FOUND;
             }
             RegistorCustomerModel user = userOpt.get();
             if (!user.getPassword().equals(password)) {
-                return "Invalid password";
+                return Constants.INVALID_PASSWORD;
             }
-            return "Login Successful!";
+            return Constants.LOGIN_SUCCESSFUL;
         } else if (isValidPhone(emailOrPhone)) {
             // Login by phone
             Optional<RegistorCustomerModel> userOpt = registorCumstomerRepository.findByPhone(emailOrPhone);
             if (userOpt.isEmpty()) {
-                return "User not found";
+                return Constants.USER_NOT_FOUND;
             }
 
             RegistorCustomerModel user = userOpt.get();
             if (!user.getPassword().equals(password)) {
-                return "Invalid password";
+                return Constants.INVALID_PASSWORD;
             }
-            return "Login Successful!";
+            return Constants.LOGIN_SUCCESSFUL;
         } else {
-            return "Invalid email or phone format";
+            return Constants.INVALID_EMAIL_OR_PHONE_FORMAT;
         }
 
     }

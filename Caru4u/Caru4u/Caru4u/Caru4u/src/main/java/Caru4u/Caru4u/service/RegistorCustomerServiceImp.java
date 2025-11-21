@@ -1,6 +1,7 @@
 package Caru4u.Caru4u.service;
 
 
+import Caru4u.Caru4u.Utiles.Constants;
 import Caru4u.Caru4u.model.RegistorCustomerModel;
 import Caru4u.Caru4u.repository.RegistorCumstomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +21,25 @@ public class RegistorCustomerServiceImp implements RegistorCustomerService {
     public String CustomerSave(RegistorCustomerModel registorCustomerModel) {
 
         String passwordCheck = checkPassword(registorCustomerModel.getPassword());
-        if (!passwordCheck.equals("OK")) {
+        if (!passwordCheck.equals(Constants.OK)) {
             return passwordCheck;
         }
 
         String emailDeatile = emailCheck(registorCustomerModel.getEmail());
-        if (!emailDeatile.equals("OK")) {
+        if (!emailDeatile.equals(Constants.OK)) {
             return emailDeatile;
         }
         if (registorCumstomerRepository.findByEmail(registorCustomerModel.getEmail()).isPresent()) {
-            return "Email Id already Registered";
+            return Constants.EMAIL_ID_ALREADY_REGISTERED;
         }
 
         String PhoneNumberValidation = phoneNumberCheck(registorCustomerModel.getPhone());
-        if (!PhoneNumberValidation.equals("OK")) {
+        if (!PhoneNumberValidation.equals(Constants.OK)) {
             return PhoneNumberValidation;
         }
 
         if (registorCumstomerRepository.findByPhone(registorCustomerModel.getPhone()).isPresent()) {
-            return "Phone Number Already Registered";
+            return Constants.PHONE_NUMBER_ALREADY_REGISTEDRED;
         }
 //        String PasswordCheck = passwordValidation(registorCustomerModel.getPassword());
 //        if (PasswordCheck.equals("OK")) {
@@ -50,41 +51,41 @@ public class RegistorCustomerServiceImp implements RegistorCustomerService {
         registorCustomerModel.setTokenExpiry(LocalDateTime.now().plusMinutes(15));
 
         registorCumstomerRepository.save(registorCustomerModel);
-        return "Registration SuccessFull";
+        return Constants.REGISTRATION_SUCCESFULL;
 
 
     }
 
     private String checkPassword(String password) {
         if (password == null || password.trim().isEmpty()) {
-            return "Password Not Empty";
+            return Constants.PASSWORD_NOT_EMPTY;
         }
         if (password.length() < 4) {
-            return "Password Should be Atlest 4";
+            return Constants.PASSWORD_SHOULD_BE_ATLEAST;
         }
-        return "OK";
+        return Constants.OK;
     }
 
     private String emailCheck(String email) {
         if (email == null || email.trim().isEmpty()) {
-            return "Email cannot be empty";
+            return Constants.EMAIL_CONNOT_BE_EMPTY;
         }
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         if (!email.matches(emailRegex)) {
-            return "Invalid Email";
+            return Constants.INVALID_EMAIL;
         }
-        return "OK";
+        return Constants.OK;
     }
 
     private String phoneNumberCheck(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
-            return "PhoneNumber Not Empty";
+            return Constants.PHONENUMBER_NOT_EMPTY;
         }
         String phoneRegex = "^[0-9]{10}$";
         if (!phoneNumber.matches(phoneRegex)) {
-            return "Invalid Number";
+            return Constants.INVALID_NUMBER;
         }
-        return "OK";
+        return Constants.OK;
     }
 
 //    private String passwordValidation(String password) {
